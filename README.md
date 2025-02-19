@@ -19,10 +19,10 @@ This repository contains the code and released models for our paper [Triple Pref
 
 ## Contents
 
-- [Install Requirements](#install-requirments-)
-- [Training Script](#training-script-)
-- [Running TPO](#running-tpo-)
-- [Data Information](#training-with-tpo-)
+- [Install Requirements](#install-requirments)
+- [Training Script](#training-script)
+- [Running TPO](#running-tpo)
+- [Data Information](#training-with-tpo)
 - [Citations](#citations)
 
 
