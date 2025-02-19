@@ -72,12 +72,17 @@ def apply_chat_template(
 
 
 
-def get_datasets() -> Dataset:
+def get_datasets(dataset_name_or_path:str = None, local_dataset: bool = False) -> Dataset:
+    dataset = None
+    if local_dataset:
+        try:
+            dataset = load_dataset('json', data_files=dataset_name_or_path)
+        except:
+            dataset = load_from_disk(dataset_name_or_path)
+    else:
+        dataset = load_dataset(dataset_name_or_path)
 
-    with open("data/UltraFeedback_triple_preferences.json") as infile:
-        dataset = json.load(infile)
-    dataset = Dataset.from_dict(dataset)
-    # print(dataset)
+    print(dataset)    
     return dataset
 
 

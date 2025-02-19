@@ -12,12 +12,13 @@ from datasets import load_dataset, load_metric, Dataset, DatasetDict
 import os
 import transformers
 from utils.tpo_trainer import TPOTrainer
+from utils.tpo_config import TPOConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer, HfArgumentParser, TrainingArguments, set_seed
 from datasets import load_from_disk
-from utils.configs import DataArguments, ModelArguments, TPOConfig
+from utils.configs import DataArguments, ModelArguments
 from utils.model_utils import load_model, get_tokenizer
 from utils.data import load_dataset, apply_chat_template, get_datasets
-from utils.utils import SavePeftModelCallback
+# from utils.utils import SavePeftModelCallback
 
 logger = logging.getLogger(__name__)
 
@@ -48,8 +49,10 @@ def main():
 
 
     # Load dataset
-    raw_datasets = get_datasets()
-    column_names = list(raw_datasets.features)
+    local_dataset = data_args.local_dataset
+    dataset_name_or_path = data_args.dataset_name_or_path
+    raw_datasets = get_datasets(dataset_name_or_path, local_dataset)
+    column_names = list(raw_datasets["train"].features)
 
 
     # Load tokenizer
@@ -65,7 +68,6 @@ def main():
         desc="Formatting comparisons with prompt template",
     )
     
-    raw_datasets = raw_datasets.train_test_split(test_size=0.10)
 
     # Replace column names with what TRL needs, text_chosen -> chosen, text_rejected -> rejected, and text_reference -> reference
     for split in ["train", "test"]:
@@ -76,7 +78,7 @@ def main():
     # Log a few random samples from the training set:
     for index in random.sample(range(len(raw_datasets["train"])), 3):
         logger.info(f"Prompt sample {index} of the raw training set:\n\n{raw_datasets['train'][index]['prompt']}")
-        logger.info(f"Prompt sample {index} of the raw training set:\n\n{raw_datasets['train'][index]['reference']}")
+        logger.info(f"Reference sample {index} of the raw training set:\n\n{raw_datasets['train'][index]['reference']}")
         logger.info(f"Chosen sample {index} of the raw training set:\n\n{raw_datasets['train'][index]['chosen']}")
         logger.info(f"Rejected sample {index} of the raw training set:\n\n{raw_datasets['train'][index]['rejected']}")
 
@@ -86,14 +88,9 @@ def main():
     tpo_trainer = TPOTrainer(
         model,
         args=training_args,
-        beta=training_args.beta,
-        alpha=training_args.alpha,
         train_dataset=raw_datasets['train'],
         eval_dataset=raw_datasets['test'],
         tokenizer=tokenizer,
-        max_prompt_length=training_args.max_length,
-        max_length=training_args.max_prompt_length,
-        callbacks=[SavePeftModelCallback] if model_args.use_peft else None,
     )
 
     # Training

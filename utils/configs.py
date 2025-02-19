@@ -177,54 +177,12 @@ class DataArguments:
         default=None, metadata={"help": "Truncation side to use for the tokenizer."}
     )
 
-
-@dataclass
-class SFTConfig(transformers.TrainingArguments):
-    """
-    Arguments related to the training process itself. For all parameters, see: https://huggingface.co/docs/transformers/v4.26.1/en/main_classes/trainer#transformers.TrainingArguments
-    """
-
-    max_seq_length: Optional[int] = field(
-        default=None,
-        metadata={"help": ("Used by TRL for reward model training, which tries to read this parameter in init.")},
+    local_dataset: Optional[bool] = field(
+        default=False, metadata={"help": "Identify the type of dataset. False indicates that an HF dataset is being loaded. True indicates that a JSON file is being loaded locally."}
     )
-    logging_first_step: bool = field(
-        default=True,
-        metadata={"help": ("Whether to log and evaluate the first global_step or not.")},
+
+    dataset_name_or_path: Optional[str] = field(
+        default=None, metadata={"help": "Name of the dataset."}
     )
-    optim: Optional[str] = field(default="adamw_torch")
 
 
-@dataclass
-class TPOConfig(transformers.TrainingArguments):
-    """
-    Arguments related to the DPO training process itself. For all parameters, see: https://huggingface.co/docs/transformers/v4.26.1/en/main_classes/trainer#transformers.TrainingArguments
-    """
-
-    beta: Optional[float] = field(
-        default=0.1,
-        metadata={"help": "The beta factor in DPO loss. Higher beta means less divergence from the initial policy."},
-    )
-    alpha: Optional[float] = field(
-        default=1,
-        metadata={"help": "The alpha factor in TPO loss. Higher alpha means increase effect of gold response learning in policy model."},
-    )
-    hub_model_revision: Optional[str] = field(
-        default="main",
-        metadata={"help": ("The Hub model branch to push the model to.")},
-    )
-    logging_first_step: bool = field(
-        default=True,
-        metadata={"help": ("Whether to log and evaluate the first global_step or not.")},
-    )
-    max_prompt_length: Optional[int] = field(
-        default=None,
-        metadata={"help": ("For DPO, the maximum length of the prompt to use for conditioning the model.")},
-    )
-    max_length: Optional[int] = field(
-        default=None,
-        metadata={"help": ("Used by TRL for reward model training, which tries to read this parameter in init.")},
-    )
-    optim: Optional[str] = field(default="rmsprop")
-    remove_unused_columns: bool = field(default=False)
-    loss_type: Optional[str] = field(default="sigmoid", metadata={"help": ("The loss type for DPO.")})
