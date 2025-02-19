@@ -198,18 +198,6 @@ If you have any questions related to the code or the paper, feel free to email A
 
 ## Citations
 ```bibtex
-@misc{saeidi2024triple,
-      title={Triple Preference Optimization: Achieving Better Alignment with Less Data in a Single Step Optimization}, 
-      author={Amir Saeidi and Shivanshu Verma and Aswin RRV and Chitta Baral},
-      year={2024},
-      eprint={2405.16681},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
-}
-```
-
-For more insights about various alignment methods, please check <a href="https://arxiv.org/abs/2404.14723"> paper</a>.
-```bibtex
 @misc{saeidi2025triplepreferenceoptimizationachieving,
       title={Triple Preference Optimization: Achieving Better Alignment using a Single Step Optimization}, 
       author={Amir Saeidi and Shivanshu Verma and Aswin RRV and Kashif Rasul and Chitta Baral},
@@ -218,6 +206,16 @@ For more insights about various alignment methods, please check <a href="https:/
       archivePrefix={arXiv},
       primaryClass={cs.CL},
       url={https://arxiv.org/abs/2405.16681}, 
+}
+```
+
+For more insights about various alignment methods, please check <a href="https://arxiv.org/abs/2404.14723"> paper</a>.
+```bibtex
+@article{saeidi2024insights,
+  title={Insights into Alignment: Evaluating DPO and its Variants Across Multiple Tasks},
+  author={Saeidi, Amir and Verma, Shivanshu and Baral, Chitta},
+  journal={arXiv preprint arXiv:2404.14723},
+  year={2024}
 }
 ```
     
