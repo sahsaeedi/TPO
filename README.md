@@ -4,7 +4,7 @@
 </div>
 
 
-This repository contains the code and released models for our paper [Triple Preference Optimization: Achieving Better Alignment in a Single Step Optimization](https://arxiv.org/abs/2405.16681). We propose a novel preference optimization to enhance the instruction-following and reasoning capabilities of large language models in a single step, beginning with the pre-trained/instruction-tuned model. TPO outperforms DPO and its latest variants across MixEval-Hard, MT-Bench, Arena-Hard represent instruction following benchmarks and GSm8K, MMLU, and MMLU-Pro represent the reasoning benchmarks under various settings. Please find all the released model checkpoints at [this link](https://huggingface.co/). 
+This repository contains the code and released models for our paper [Triple Preference Optimization: Achieving Better Alignment in a Single Step Optimization](https://arxiv.org/abs/2405.16681). We propose a novel preference optimization to enhance the instruction-following and reasoning capabilities of large language models in a single step, beginning with the pre-trained/instruction-tuned model. TPO outperforms DPO and its latest variants across MixEval-Hard, MT-Bench, and Arena-Hard, representing instruction following benchmarks, and GSm8K, MMLU, and MMLU-Pro represent the reasoning benchmarks under various settings. Please find all the released model checkpoints at [this link](https://huggingface.co/tpo-alignment). 
 
 <img src="img/tpo_overview.png" width="1000px"></img>
 
